@@ -1,0 +1,44 @@
+﻿@model Feeder.Models.ResponseFeeder<List<Feeder.Models.Tape>>
+
+<div class="input-group" style="margin:50px">
+  <div class="input-group-btn">
+    <button id="getPosts" type="button" class="btn btn-default">Поиск</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            @if(Model.Success)
+            {
+                @foreach(var item in Model.Data)
+                {
+                    <li><a onclick="document.getElementById('search').value = '@item.Address';">@item.Channel</a></li>
+                }
+            }
+            else
+            {
+                <li><a>Каналы не найдены</a></li>
+            }
+        </ul>
+  </div>
+  <input type="text" id="search" placeholder="Здесь адрес канала" class="form-control">
+
+</div>
+<hr/>
+<div id = "results">
+</div>
+
+    <script>
+     $("#getPosts").click(function() {
+         $("#loader_tapes").css("display","block")
+            $.ajax({
+                method:'post',
+                url:'Feeder/GetPosts',
+                data: {address:$("#search").val() },
+                success: function(result) {
+                    $("#loader").css("display","none")
+                    $('#results').empty();
+                    $('#results').html(result);
+
+                }
+            })
+        });
+</script>
+

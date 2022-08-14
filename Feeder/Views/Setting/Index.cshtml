@@ -1,0 +1,123 @@
+﻿@model Feeder.Models.ResponseFeeder<Settings>
+
+
+
+<h2>Настройки</h2>
+
+<hr/>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>Ленты <i title="Добавить"  id="addChannel" data-toggle="modal" href="#modal-example" style="color:green; cursor:pointer" class="fa fa-add"/></strong></div>
+    <table id="channel_table"  style="color:black" class="table table-hover">
+    @if(Model.Success)
+    {
+        <tr>
+            <th>Вкл/Выкл</th>
+            <th>Канал</th>
+            <th>Адрес</th>
+            <th>Дополнительно</th>
+        </tr>
+        <tbody>
+        @foreach(var tape in Model.Data.Tapes)
+        {
+            <tr id = "@tape.Channel">
+                @if(tape.Enabled) {
+                    <td><input id="check_@tape.Channel" style="margin-left:20px;" onclick="EnabledChannel('@tape.Channel')" checked type="checkbox"> </td>
+                }
+                else {
+                    <td><input id="check_@tape.Channel" style="margin-left:20px;" onclick="EnabledChannel('@tape.Channel')" type="checkbox"> </td>
+                }
+                
+                <td>@tape.Channel</td>
+                <td>@tape.Address</td>
+                <td><button type="button" class="btn btn-danger" onclick="Remove('@tape.Channel')">Удалить</button></td>
+            </tr>
+        }
+        </tbody>
+    }
+    </table>
+    <div style="color:black" class="panel-footer">Период обновления ленты, в минутах
+    
+            <div class="input-group">
+                <input id="time_text" type="text"  value="@Model.Data.UpdateTime" class="form-control"/>
+                 <span class="input-group-btn">
+                     <button id="btn_updateTime" class="btn btn-primary" type="button">Применить</button>
+                 </span>
+            </div>
+
+        <hr/>
+         @if(Model.isFormat)
+        {
+            
+            <p><input id = "check_format"  checked type="checkbox" onclick="ChangeFormatByTags()" /> Форматировать описание</p>
+        }
+        else
+        {
+            <p><input id = "check_format" type="checkbox" onclick="ChangeFormatByTags()" /> Форматировать описание</p>
+        }
+    
+    </div>
+    
+</div>
+<br/>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>Web-прокси  <i id="change_proxy" onclick="ChangeProxyData()" title="Сохранить изменения" style="color:red; cursor:pointer" class="fa fa-edit"/></strong></div>
+    <table id="table_proxy" style="color:black" class="table table-hover">
+        @if(Model.Success)
+        {
+            <tr>
+                <th>Адрес</th>
+                <th>Имя пользователя</th>
+                <th>Пароль</th>
+                <th>Состояние</th>
+            </tr>
+            <tr>
+                <td><input id="proxy_address" value="@Model.Data.Proxy.Url"/></td>
+                <td><input id="proxy_name" value="@Model.Data.Proxy.UserName"/></td>
+                <td><input id="proxy_pass" type="password" value="@Model.Data.Proxy.Password"/></td>
+                @if(Model.Data.Proxy.IsEnabled)
+                {
+                    <td><button id="off_proxy" type="button" class="btn btn-danger">Выключить</button></td>
+                }
+                else
+                {
+                    <td><button id="on_proxy" type="button" class="btn btn-primary">Включить</button></td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="modal fade" id="modal-example" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="color:black">
+        <div class="modal-content">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+                 <h4 class="modal-title">Добавить канал</h4>
+             </div>
+             <div class="modal-body">
+                 <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-tv"/></span>
+                    <input id="channel_name" type="text" class="form-control" placeholder="Название канала">
+                 </div>
+                 <br/>
+                 <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-link"/></span>
+                    <input id="channel_address" type="text" class="form-control" placeholder="Адрес">
+                 </div>
+             </div>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-success" onclick="AddChannel()">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/js/setting.js"></script>
+

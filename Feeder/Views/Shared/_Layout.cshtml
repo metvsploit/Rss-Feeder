@@ -1,0 +1,48 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Feeder</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Feeder.styles.css" asp-append-version="true" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet"/>
+</head>
+<body>
+    <div id="viewport">
+        <div id="sidebar">
+            <header>
+                <a href="/home"><img width="120px" height="25px" src="~/logo.png"></a>
+            </header>
+            <ul class="nav">
+                <li>
+                    <a id="channels"><i class="fa fa-list"></i> Ленты</a>
+                </li>
+                <li>
+                    <a id="tapes"><i class="fa fa-search"></i> Поиск</a>
+                </li>
+                <li>
+                    <a id="setting"><i class="fa fa-gear"></i> Настройки</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <div class="container-fluid">
+                <div id="maintain">
+                 @RenderBody()
+                </div>
+                <div id="loader"></div>
+            </div>
+        </div>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="~/js/menu.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

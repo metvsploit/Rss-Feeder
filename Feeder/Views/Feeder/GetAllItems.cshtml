@@ -1,0 +1,45 @@
+﻿@model Feeder.Models.ResponseFeeder<List<Feeder.Models.Item>>
+
+<nav>
+  <ul class="pager">
+    <li id="previos" class="previous"><a><span aria-hidden="true">←</span> Предыдущая</a></li>
+    <li  class="next"><a id="next" >Следующая <span aria-hidden="true">→</span></a></li>
+  </ul>
+</nav>
+<hr />
+
+<div id="items">
+    @if(Model.Success) {
+    @for(int i=0; i<Model.Data.Count; i++) {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                 <a href="@Model.Data[i].Address" class="panel-title">[@Model.Data[i].Published]  @Model.Data[i].Title</a>
+            </div>
+            <div class="panel-body">
+                <a href="#spoiler-@i" data-toggle="collapse" class="btn btn-primary">Описание</a>
+                <div class="collapse" id="spoiler-@i">
+                    <div class="well" style="word-wrap: break-word; color:black;">
+                        @if(Model.isFormat) {
+                            @Html.Raw(@Model.Data[i].Description)
+                        }
+                        else {
+                            <p>@Model.Data[i].Description</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+      }
+   }
+   else {
+
+       <div class="alert alert-warning">
+           <strong>@Model.Message</strong> 
+       </div>
+   }
+<br/>
+</div>
+
+<script src=~/js/pagination.js></script>
+ 

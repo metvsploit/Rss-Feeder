@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<settings>
+  <proxy enabled="False">
+    <address>136.169.168.118:8080</address>
+    <username>SuperVIPB9MSHO1</username>
+    <password>8hC02bSj</password>
+  </proxy>
+  <tapes>
+    <tape name="Хабр">
+      <address>https://habr.com/ru/rss/interesting/</address>
+      <enabled>True</enabled>
+    </tape>
+    <tape name="Лента">
+      <address>https://lenta.ru/rss</address>
+      <enabled>True</enabled>
+    </tape>
+  </tapes>
+  <update>1</update>
+  <format>True</format>
+</settings>
